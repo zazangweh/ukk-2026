@@ -6,6 +6,7 @@ use App\Controllers\Core\DatabaseController;
 use App\Controllers\Core\DocsController;
 use App\Controllers\Core\RoleController;
 use App\Controllers\Core\UserController;
+use App\Controllers\KategoriController;
 use Sakuci\Route;
 
 /*
@@ -45,6 +46,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', [DashboardController::class, 'admin'])->name('admin.dashboard');
 
+    
+
     Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
     Route::post('/roles', [RoleController::class, 'store'])->name('admin.roles.store');
     Route::put('/roles/{role}', [RoleController::class, 'update'])->name('admin.roles.update');
@@ -52,7 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
-
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
     Route::get('/database/export', [DatabaseController::class, 'export'])->name('admin.database.export');
 });
 
@@ -66,6 +69,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 */
 // @generated-roles:start
 
+// @role:siswa:start
+Route::group(['prefix' => 'siswa', 'middleware' => 'siswa'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('siswa.dashboard');
+});
+// @role:siswa:end
 // @generated-roles:end
 
 /*
