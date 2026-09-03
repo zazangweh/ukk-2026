@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use Sakuci\Controller;
 use Sakuci\Http\Request;
-
+use App\Models\Kategori;
 class KategoriController extends Controller
 {
     public function index(Request $request)
     {
-        return "ini kategori";
+        $kategori = Kategori::paginate(10);
+        return view('Kategori.index', compact('kategori'));
     }
 }
