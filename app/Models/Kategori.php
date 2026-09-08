@@ -7,7 +7,8 @@ use Sakuci\Database\Model;
 class Kategori extends Model
 {
     protected static ?string $table = 'kategori';
-    protected static ?string $primarykey = 'id_kategori';
+
+    protected string $primarykey = 'id_kategori';
     
     protected array $fillable = ['keterangan'];
 }
