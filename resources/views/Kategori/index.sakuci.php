@@ -20,7 +20,14 @@
 
             <td>{{ $no++ }}</td>
             <td>{{ $kategoris->keterangan }}</td>
-            <td><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Hapus</button></td>
+        <td>
+           <a href="{{ route('kategori.edit', ['id_kategori' => $kategoris->id_kategori]) }}" class="btn btn-primary">Edit</a>
+              <form action="{{ route('kategori.destroy', ['id_kategori' => $kategoris->id_kategori]) }}" method="POST" style="display: inline-block;">
+                 @csrf
+                 @method('DELETE')
+                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">Hapus</button>
+                </form>
+        </td>
                 
         </tr>
         @endforeach

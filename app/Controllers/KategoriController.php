@@ -19,31 +19,39 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama_keterangan' => 'required|varchar|max:255',
         ]);
 
         Kategori::create([
-            'keterangan' => $request->input('nama'),
+            'keterangan' => $request->input('keterangan'),
         ]);
 
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
-    public function edit(Request $request, $kategori)
+    public function edit(Request $request, $id_kategori)
     {
-        $kategori = Kategori::findOrFail($kategori);
+        $kategori = Kategori::findOrFail($id_kategori);
         return view('Kategori.edit', compact('kategori'));
     }
-    public function update(Request $request, $kategori)
+    public function update(Request $request, $id_kategori)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'keterangan' => 'required|varcharmax:255',
         ]);
 
-        $kategori = Kategori::findOrFail($kategori);
+        $kategori = Kategori::findOrFail($id_kategori);
         $kategori->update([
-            'keterangan' => $request->input('nama'),
+            'keterangan' => $request->input('keterangan'),
         ]);
 
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
+    }
+
+    public function destroy(Request $request, $id_kategori)
+    {
+        $kategori = Kategori::findOrFail($id_kategori);
+        $kategori->delete();
+
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }
