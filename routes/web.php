@@ -62,6 +62,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/kategori/{id_kategori}/edit', [App\Controllers\KategoriController::class, 'edit'])->name('kategori.edit');
     Route::put('/kategori/{id_kategori}', [App\Controllers\KategoriController::class, 'update'])->name('kategori.update');
     route::delete('/kategori/{id_kategori}', [App\Controllers\KategoriController::class, 'destroy'])->name('kategori.destroy');
+
+    Route::get('/pengguna', [penggunaController::class, 'index'])->name('pengguna.index');
+    Route::get('/pengguna/create', [penggunaController::class, 'create'])->name('pengguna.create');
+    Route::post('/pengguna', [penggunaController::class, 'store'])->name('pengguna.store');
     });
 
 /*

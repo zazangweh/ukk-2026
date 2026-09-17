@@ -19,7 +19,7 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_keterangan' => 'required|varchar|max:255',
+            'keterangan' => 'required|varchar|max:255',
         ]);
 
         Kategori::create([
