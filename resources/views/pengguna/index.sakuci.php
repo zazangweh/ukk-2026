@@ -1,37 +1,40 @@
 @extends('layouts.app')
 
-@section('title', config('app.name') . ' -- Kerangka PHP Ringan')
-
 @section('content')
-<h1>kategori</h1>
-<a href="{{ route('kategori.create') }}" class="btn btn-primary mb-3">Tambah Kategori</a>
-<table class="table table-striped table-hover">
+<h1>Pengguna</h1>
+<a href="{{ route('pengguna.create') }}" class="btn btn-primary mb-3">Tambah Pengguna</a>
+
+<table class="table table-bordered mt-3">
     <thead>
         <tr>
-            <th >no</th>
-            <th>Keterangan</th>
-            <th>aksi</th>
+            <th>No</th>
+            <th>Nama</th>
+            <th>NIS</th>
+            <th>Kelas</th>
+            <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
         @php $no = 1; @endphp
-        @foreach ($kategori as $kategoris)
+        @foreach ($data as $d)
         <tr>
-
             <td>{{ $no++ }}</td>
-            <td>{{ $kategoris->keterangan }}</td>
-        <td>
-           <a href="{{ route('kategori.edit', ['id_kategori' => $kategoris->id_kategori]) }}" class="btn btn-primary">Edit</a>
-              <form action="{{ route('kategori.destroy', ['id_kategori' => $kategoris->id_kategori]) }}" method="POST" style="display: inline-block;">
-                 @csrf
-                 @method('DELETE')
-                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">Hapus</button>
+            <td>{{ $d->nama }}</td>
+            <td>{{ $d->nis }}</td>
+            <td>{{ $d->kelas }}</td>
+            <td>
+                <a href="{{ route('pengguna.edit', ['pengguna' => $d->id_siswa]) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                <form action="{{ route('pengguna.destroy', ['pengguna' => $d->id]) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau hapus?')">Hapus</button>
                 </form>
-        </td>
-                
+            </td>
         </tr>
         @endforeach
     </tbody>
-    </table>
-    {!! $kategori->links() !!}
+</table>
+
+{!! $data->links() !!}
 @endsection

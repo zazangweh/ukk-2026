@@ -16,8 +16,8 @@
        
 
         <div class="d-flex flex-wrap gap-2 justify-content-center">
-            <a class="btn btn-brand btn-lg px-4" href="{{ route('kategori.index') }}">Kategori</a>
-            <a class="btn btn-outline-brand btn-lg px-4" href="{{ route('kategori.index') }}" >????</a>
+            <a class="btn btn-brand btn-lg px-4" href="{{ route('login') }}">login</a>
+            <a class="btn btn-outline-brand btn-lg px-4" href="{{ route('kategori.index') }}" >Kategori</a>
         </div>
 
        

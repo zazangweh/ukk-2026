@@ -7,6 +7,7 @@ use App\Controllers\Core\DocsController;
 use App\Controllers\Core\RoleController;
 use App\Controllers\Core\UserController;
 use App\Controllers\KategoriController;
+use App\Controllers\PenggunaController;
 use Sakuci\Route;
 
 /*
@@ -63,9 +64,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::put('/kategori/{id_kategori}', [App\Controllers\KategoriController::class, 'update'])->name('kategori.update');
     route::delete('/kategori/{id_kategori}', [App\Controllers\KategoriController::class, 'destroy'])->name('kategori.destroy');
 
-    Route::get('/pengguna', [penggunaController::class, 'index'])->name('pengguna.index');
-    Route::get('/pengguna/create', [penggunaController::class, 'create'])->name('pengguna.create');
-    Route::post('/pengguna', [penggunaController::class, 'store'])->name('pengguna.store');
+    Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
+    Route::get('/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
+    Route::post('/pengguna', [PenggunaController::class, 'store'])->name('pengguna.store');
+    Route::get('/pengguna/{pengguna}/edit', [PenggunaController::class, 'edit'])->name('pengguna.edit');
+    Route::put('/pengguna/{pengguna}', [PenggunaController::class, 'update'])->name('pengguna.update');
+    Route::delete('/pengguna/{pengguna}', [PenggunaController::class, 'destroy'])->name('pengguna.destroy');
     });
 
 /*
