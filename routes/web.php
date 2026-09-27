@@ -63,13 +63,31 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/kategori/{id_kategori}/edit', [App\Controllers\KategoriController::class, 'edit'])->name('kategori.edit');
     Route::put('/kategori/{id_kategori}', [App\Controllers\KategoriController::class, 'update'])->name('kategori.update');
     route::delete('/kategori/{id_kategori}', [App\Controllers\KategoriController::class, 'destroy'])->name('kategori.destroy');
-
+   
+    //pengguna
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
     Route::get('/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
     Route::post('/pengguna', [PenggunaController::class, 'store'])->name('pengguna.store');
     Route::get('/pengguna/{pengguna}/edit', [PenggunaController::class, 'edit'])->name('pengguna.edit');
     Route::put('/pengguna/{pengguna}', [PenggunaController::class, 'update'])->name('pengguna.update');
     Route::delete('/pengguna/{pengguna}', [PenggunaController::class, 'destroy'])->name('pengguna.destroy');
+
+    //Lokasi
+  Route::get('/Lokasi', [LokasiController::class, 'index'])->name('admin.lokasi.index');
+  Route::get('/lokasi/create', [LokasiController::class, 'create'])->name('admin.lokasi.create');
+  Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('admin.lokasi.store');
+  Route::get('/lokasi/{id_lokasi}/edit', [LokasiController::class, 'edit'])->name('admin.lokasi.edit');
+  Route::post('/lokasi/{id_lokasi}', [LokasiController::class, 'update'])->name('admin.lokasi.update');
+  Route::delete('/lokasi/{id_lokasi}', [LokasiController::class, 'delete'])->name('admin.lokasi.delete');
+
+  //Kondisi
+  Route::get('/kondisi', [KondisiController::class, 'index'])->name('admin.kondisi.index');
+  Route::get('/kondisi/create', [KondisiController::class, 'create'])->name('admin.kondisi.create');
+  Route::post('/kondisi/store', [KondisiController::class, 'store'])->name('admin.kondisi.store');
+  Route::get('/kondisi/{id_kondisi}/edit', [KondisiController::class, 'edit'])->name('admin.kondisi.edit');
+  Route::post('/Kondisi/{id_kondisi}', [KondisiController::class, 'update'])->name('admin.kondisi.update');
+  Route::delete('/kondisi/{id_kondisi}', [KondisiController::class, 'delete'])->name('admin.kondisi.delete');
+
     });
 
 /*

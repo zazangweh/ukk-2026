@@ -1,142 +1,157 @@
 @extends('layouts.app')
 
-@section('title', config('app.name') . ' -- Layanan Pengaduan Sarana & Prasarana Sekolah')
+@section('title', config('app.name') . ' — Layanan Pengaduan Sarana & Prasarana Sekolah')
+
+@push('styles')
+<style>
+    /* Styling khusus agar responsif & rapi di Dark/Light Mode */
+    .hero-card {
+        background: linear-gradient(135deg, rgba(13, 110, 253, 0.08) 0%, rgba(13, 110, 253, 0.02) 100%);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    [data-bs-theme="dark"] .hero-card {
+        background: linear-gradient(135deg, rgba(13, 110, 253, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .timeline-badge {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-hover-bounce {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-hover-bounce:hover {
+        transform: translateY(-2px);
+    }
+</style>
+@endpush
 
 @section('content')
-
-    {{-- Hero Section --}}
-    <section class="position-relative overflow-hidden py-5 my-3 bg-gradient rounded-4 shadow-sm border px-4 px-lg-5" style="background: linear-gradient(135deg, rgba(13,110,253,0.05) 0%, rgba(13,110,253,0.01) 100%);">
-        <div class="row align-items-center g-5 py-4">
-            <div class="col-lg-7 text-center text-lg-start">
-                <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3 fw-semibold">
+<div class="container py-3 py-lg-4">
+    
+    {{-- Hero Section (Cek Status Laporan Sudah Dihapus & Dibuat Center Focus) --}}
+    <section class="hero-card position-relative overflow-hidden py-5 px-3 px-sm-4 px-lg-5 rounded-4 shadow-sm mb-4 mb-lg-5 text-center">
+        <div class="row justify-content-center py-2 py-lg-3">
+            <div class="col-lg-9 col-xl-8">
+                <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2 mb-3 fw-semibold">
                     <i class="bi bi-tools me-1"></i> Portal Resmi Sarana & Prasarana v1.0.0
                 </span>
                 
-                <h1 class="display-4 fw-bold mb-3 text-dark lh-tight">
-                    Laporkan Kerusakan Fasilitas Sekolah <span class="text-primary">Lebih Cepat & Mudah</span>
+                <h1 class="display-5 display-md-4 fw-bold mb-3 text-body">
+                    Laporkan Kerusakan Fasilitas Sekolah <span class="text-primary d-inline-block">Lebih Cepat & Mudah</span>
                 </h1>
                 
-                <p class="lead text-muted mb-4">
+                <p class="lead text-body-secondary mb-4 fs-6 fs-md-5 px-md-4">
                     Punya kendala dengan fasilitas kelas, laboratorium, atau area sekolah lainnya? Sampaikan pengaduan Anda di sini dan pantau langsung proses perbaikannya secara transparan.
                 </p>
 
-                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-                    <a class="btn btn-primary btn-lg px-4 shadow-sm rounded-pill d-inline-flex align-items-center gap-2" href="{{ route('login') }}">
-                        <i class="bi bi-box-arrow-in-right"></i> Masuk & Buat Laporan
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a class="btn btn-primary btn-lg px-4 shadow-sm rounded-pill d-inline-flex align-items-center justify-content-center gap-2 btn-hover-bounce fw-semibold" href="{{ route('login') }}">
+                        <i class="bi bi-box-arrow-in-right fs-5"></i> Masuk & Buat Laporan
                     </a>
-                    <a class="btn btn-outline-secondary btn-lg px-4 rounded-pill d-inline-flex align-items-center gap-2" href="#alur-pengaduan">
-                        <i class="bi bi-info-circle"></i> Pelajari Alur
+                    <a class="btn btn-outline-secondary btn-lg px-4 rounded-pill d-inline-flex align-items-center justify-content-center gap-2 btn-hover-bounce fw-semibold" href="#alur-pengaduan">
+                        <i class="bi bi-info-circle fs-5"></i> Pelajari Alur
                     </a>
-                </div>
-            </div>
-
-            <div class="col-lg-5">
-                <div class="card border-0 shadow-lg rounded-4 p-4 bg-white">
-                    <div class="text-center mb-4">
-                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center p-3 mb-2" style="width: 70px; height: 70px;">
-                            <i class="bi bi-clipboard-check display-6"></i>
-                        </div>
-                        <h3 class="h5 fw-bold mb-1">Cek Status Laporan</h3>
-                        <p class="text-muted small mb-0">Masukkan kode tiket untuk melihat progres perbaikan.</p>
-                    </div>
-
-                    <form action="#" method="GET">
-                        <div class="mb-3">
-                            <input type="text" class="form-control form-control-lg bg-light" placeholder="Contoh: TIKET-98213" required>
-                        </div>
-                        <button type="submit" class="btn btn-dark w-100 py-2 fw-semibold rounded-3 shadow-sm">
-                            <i class="bi bi-search me-1"></i> Lacak Pengaduan
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Statistik Singkat / Keunggulan --}}
-    <div class="row g-4 my-4 text-center">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
-                <div class="text-primary mb-3 fs-2"><i class="bi bi-lightning-charge-fill"></i></div>
-                <h4 class="h5 fw-bold">Respon Cepat</h4>
-                <p class="text-muted small mb-0">Laporan yang masuk langsung diteruskan ke tim sarpras untuk segera ditinjau.</p>
+    {{-- Keunggulan / Fitur Singkat --}}
+    <div class="row g-3 g-md-4 mb-4 mb-lg-5 text-center">
+        <div class="col-12 col-md-4">
+            <div class="card border border-body-tertiary shadow-sm rounded-4 p-4 h-100 bg-body-tertiary">
+                <div class="text-primary mb-3 fs-1"><i class="bi bi-lightning-charge-fill"></i></div>
+                <h4 class="h5 fw-bold text-body">Respon Cepat</h4>
+                <p class="text-body-secondary small mb-0">Laporan yang masuk langsung diteruskan ke tim sarpras untuk segera ditinjau.</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
-                <div class="text-success mb-3 fs-2"><i class="bi bi-shield-check-fill"></i></div>
-                <h4 class="h5 fw-bold">Transparan & Terpantau</h4>
-                <p class="text-muted small mb-0">Siswa dapat melihat status laporan mulai dari pending, diproses, hingga selesai.</p>
+        <div class="col-12 col-md-4">
+            <div class="card border border-body-tertiary shadow-sm rounded-4 p-4 h-100 bg-body-tertiary">
+                <div class="text-success mb-3 fs-1"><i class="bi bi-shield-check-fill"></i></div>
+                <h4 class="h5 fw-bold text-body">Transparan & Terpantau</h4>
+                <p class="text-body-secondary small mb-0">Siswa dapat melihat status laporan mulai dari pending, diproses, hingga selesai.</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
-                <div class="text-warning mb-3 fs-2"><i class="bi bi-sliders"></i></div>
-                <h4 class="h5 fw-bold">Terorganisir</h4>
-                <p class="text-muted small mb-0">Pengelompokan kategori fasilitas membuat perbaikan lebih terarah dan efisien.</p>
+        <div class="col-12 col-md-4">
+            <div class="card border border-body-tertiary shadow-sm rounded-4 p-4 h-100 bg-body-tertiary">
+                <div class="text-warning mb-3 fs-1"><i class="bi bi-sliders"></i></div>
+                <h4 class="h5 fw-bold text-body">Terorganisir</h4>
+                <p class="text-body-secondary small mb-0">Pengelompokan kategori fasilitas membuat perbaikan lebih terarah dan efisien.</p>
             </div>
         </div>
     </div>
 
     {{-- Informasi & Alur Pengaduan Section --}}
-    <div class="container py-4" id="alur-pengaduan">
+    <div class="pt-2" id="alur-pengaduan">
         <div class="row g-4">
             
             {{-- Tentang Aplikasi --}}
-            <div class="col-lg-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-lg-5 bg-white">
+            <div class="col-12 col-lg-6">
+                <div class="card border border-body-tertiary shadow-sm rounded-4 p-4 p-lg-5 bg-body-tertiary h-100">
                     <div class="d-flex align-items-center mb-3">
-                        <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-3 me-3 fs-4">
+                        <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-3 me-3 fs-4 d-flex align-items-center justify-content-center">
                             <i class="bi bi-info-circle-fill"></i>
                         </div>
-                        <h3 class="h4 fw-bold mb-0 text-dark">Tentang Aplikasi</h3>
+                        <h3 class="h4 fw-bold mb-0 text-body">Tentang Aplikasi</h3>
                     </div>
-                    <p class="text-muted lh-base mb-3">
-                        <strong>Pengaduan Sarana & Prasarana Sekolah</strong> merupakan platform digital yang dirancang khusus untuk memudahkan siswa dalam melaporkan kerusakan atau kendala pada fasilitas sekolah secara real-time.
+                    <p class="text-body-secondary lh-relaxed mb-3">
+                        <strong>Pengaduan Sarana & Prasarana Sekolah</strong> merupakan platform digital yang dirancang khusus untuk memudahkan siswa dalam melaporkan kerusakan atau kendala pada fasilitas sekolah secara <em>real-time</em>.
                     </p>
-                    <p class="text-muted lh-base mb-0">
+                    <p class="text-body-secondary lh-relaxed mb-0">
                         Melalui sistem ini, admin dan petugas sekolah dapat mengelola, memproses, serta memperbarui status perbaikan fasilitas secara transparan demi kenyamanan bersama.
                     </p>
                 </div>
             </div>
 
             {{-- Cara Pengaduan / Alur --}}
-            <div class="col-lg-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-lg-5 bg-white">
+            <div class="col-12 col-lg-6">
+                <div class="card border border-body-tertiary shadow-sm rounded-4 p-4 p-lg-5 bg-body-tertiary h-100">
                     <div class="d-flex align-items-center mb-4">
-                        <div class="bg-success bg-opacity-10 text-success p-3 rounded-3 me-3 fs-4">
+                        <div class="bg-success bg-opacity-10 text-success p-3 rounded-3 me-3 fs-4 d-flex align-items-center justify-content-center">
                             <i class="bi bi-arrow-repeat"></i>
                         </div>
-                        <h3 class="h4 fw-bold mb-0 text-dark">Alur Pengaduan</h3>
+                        <h3 class="h4 fw-bold mb-0 text-body">Alur Pengaduan</h3>
                     </div>
                     
-                    <div class="timeline-steps">
-                        <div class="d-flex mb-3 align-items-start">
-                            <div class="badge bg-primary rounded-circle p-2 me-3 mt-1 shadow-sm">1</div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Login Akun</h6>
-                                <p class="text-muted small mb-0">Masuk menggunakan akun siswa yang terdaftar.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3 align-items-start">
-                            <div class="badge bg-primary rounded-circle p-2 me-3 mt-1 shadow-sm">2</div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Buat Pengaduan</h6>
-                                <p class="text-muted small mb-0">Isi detail kerusakan fasilitas dan pilih kategori yang sesuai.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3 align-items-start">
-                            <div class="badge bg-warning text-dark rounded-circle p-2 me-3 mt-1 shadow-sm">3</div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Diproses</h6>
-                                <p class="text-muted small mb-0">Admin meninjau laporan dan melakukan perbaikan sarpras.</p>
-                            </div>
-                        </div>
+                    <div class="d-flex flex-column gap-3">
                         <div class="d-flex align-items-start">
-                            <div class="badge bg-success rounded-circle p-2 me-3 mt-1 shadow-sm">4</div>
+                            <div class="timeline-badge bg-primary text-white rounded-circle me-3 fw-bold shadow-sm">1</div>
                             <div>
-                                <h6 class="fw-bold mb-1">Selesai</h6>
-                                <p class="text-muted small mb-0">Fasilitas sekolah telah diperbaiki dan dapat digunakan kembali.</p>
+                                <h6 class="fw-bold mb-1 text-body">Login Akun</h6>
+                                <p class="text-body-secondary small mb-0">Masuk menggunakan akun siswa yang telah terdaftar.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start">
+                            <div class="timeline-badge bg-primary text-white rounded-circle me-3 fw-bold shadow-sm">2</div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-body">Buat Pengaduan</h6>
+                                <p class="text-body-secondary small mb-0">Isi detail kerusakan fasilitas dan pilih kategori yang sesuai.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start">
+                            <div class="timeline-badge bg-warning text-dark rounded-circle me-3 fw-bold shadow-sm">3</div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-body">Diproses</h6>
+                                <p class="text-body-secondary small mb-0">Admin meninjau laporan dan melakukan perbaikan sarpras.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start">
+                            <div class="timeline-badge bg-success text-white rounded-circle me-3 fw-bold shadow-sm">4</div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-body">Selesai</h6>
+                                <p class="text-body-secondary small mb-0">Fasilitas sekolah telah diperbaiki dan dapat digunakan kembali.</p>
                             </div>
                         </div>
                     </div>
@@ -147,4 +162,5 @@
         </div>
     </div>
 
+</div>
 @endsection
