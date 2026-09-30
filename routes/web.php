@@ -8,6 +8,8 @@ use App\Controllers\Core\RoleController;
 use App\Controllers\Core\UserController;
 use App\Controllers\KategoriController;
 use App\Controllers\PenggunaController;
+use App\Controllers\AlatController;
+use App\Controllers\AspirasiController;
 use Sakuci\Route;
 
 /*
@@ -72,21 +74,21 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::put('/pengguna/{pengguna}', [PenggunaController::class, 'update'])->name('pengguna.update');
     Route::delete('/pengguna/{pengguna}', [PenggunaController::class, 'destroy'])->name('pengguna.destroy');
 
-    //Lokasi
-  Route::get('/Lokasi', [LokasiController::class, 'index'])->name('admin.lokasi.index');
-  Route::get('/lokasi/create', [LokasiController::class, 'create'])->name('admin.lokasi.create');
-  Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('admin.lokasi.store');
-  Route::get('/lokasi/{id_lokasi}/edit', [LokasiController::class, 'edit'])->name('admin.lokasi.edit');
-  Route::post('/lokasi/{id_lokasi}', [LokasiController::class, 'update'])->name('admin.lokasi.update');
-  Route::delete('/lokasi/{id_lokasi}', [LokasiController::class, 'delete'])->name('admin.lokasi.delete');
+  //alat
+   Route::get('/alat', [AlatController::class, 'index'])->name('alat.index');
+    Route::get('/alat/create', [AlatController::class, 'create'])->name('alat.create');
+    Route::post('/alat', [AlatController::class, 'store'])->name('alat.store');
+    Route::get('/alat/{alat}/edit', [AlatController::class, 'edit'])->name('alat.edit');
+    Route::put('/alat/{alat}', [AlatController::class, 'update'])->name('alat.update');
+    Route::delete('/alat/{alat}', [AlatController::class, 'destroy'])->name('alat.destroy');
 
-  //Kondisi
-  Route::get('/kondisi', [KondisiController::class, 'index'])->name('admin.kondisi.index');
-  Route::get('/kondisi/create', [KondisiController::class, 'create'])->name('admin.kondisi.create');
-  Route::post('/kondisi/store', [KondisiController::class, 'store'])->name('admin.kondisi.store');
-  Route::get('/kondisi/{id_kondisi}/edit', [KondisiController::class, 'edit'])->name('admin.kondisi.edit');
-  Route::post('/Kondisi/{id_kondisi}', [KondisiController::class, 'update'])->name('admin.kondisi.update');
-  Route::delete('/kondisi/{id_kondisi}', [KondisiController::class, 'delete'])->name('admin.kondisi.delete');
+    //aspirasi
+     Route::get('/aspirasi', [AspirasiController::class, 'index'])->name('aspirasi.index');
+    Route::get('/aspirasi/create', [AspirasiController::class, 'create'])->name('aspirasi.create');
+    Route::post('/aspirasi', [AspirasiController::class, 'store'])->name('aspirasi.store');
+    Route::get('/aspirasi/{id_aspirasi}/edit', [AspirasiController::class, 'edit'])->name('aspirasi.edit');
+    Route::put('/aspirasi/{id_aspirasi}', [AspirasiController::class, 'update'])->name('aspirasi.update');
+    Route::delete('/aspirasi/{id_aspirasi}', [AspirasiController::class, 'destroy'])->name('aspirasi.destroy');
 
     });
 

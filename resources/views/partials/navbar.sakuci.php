@@ -93,6 +93,20 @@
                     <span class="fw-medium">Pengguna</span>
                 </a>
             </li>
+             <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('aspirasi.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('aspirasi.index') }}">
+                    <i class="bi bi-people fs-5"></i>
+                    <span class="fw-medium">Aspirasi</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('alat.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('alat.index') }}">
+                    <i class="bi bi-people fs-5"></i>
+                    <span class="fw-medium">alat</span>
+                </a>
+            </li>
+            
+
 
             @if ($currentUser)
                 <div class="my-2 border-top"></div>
