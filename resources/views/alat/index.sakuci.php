@@ -1,8 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Daftar Alat</h1>
-<a href="{{ route('alat.create') }}" class="btn btn-primary mb-3">Tambah Alat</a>
+@php
+    $currentUser = \App\Models\User::current();
+@endphp
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Daftar Alat</h1>
+
+    {{-- Tombol Tambah Alat hanya muncul jika bukan siswa (admin/petugas) --}}
+    @if($currentUser && isset($currentUser->role) && $currentUser->role !== 'siswa')
+        <a href="{{ route('alat.create') }}" class="btn btn-primary">Tambah Alat</a>
+    @endif
+</div>
 
 <table class="table table-bordered mt-3">
     <thead>
@@ -14,7 +24,10 @@
             <th>Kondisi</th>
             <th>Jumlah</th>
             <th>Lokasi</th>
-            <th>Aksi</th>
+            {{-- Kolom Aksi hanya dipasang untuk Admin/Petugas --}}
+            @if($currentUser && isset($currentUser->role) && $currentUser->role !== 'siswa')
+                <th>Aksi</th>
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -28,6 +41,9 @@
             <td>{{ $d->kondisi }}</td>
             <td>{{ $d->jumlah }}</td>
             <td>{{ $d->lokasi }}</td>
+            
+            {{-- Tombol Edit & Hapus hanya dipasang untuk Admin/Petugas --}}
+            @if($currentUser && isset($currentUser->role) && $currentUser->role !== 'siswa')
             <td>
                 <a href="{{ route('alat.edit', ['alat' => $d->id_alat]) }}" class="btn btn-warning btn-sm">Edit</a>
 
@@ -37,6 +53,7 @@
                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau hapus?')">Hapus</button>
                 </form>
             </td>
+            @endif
         </tr>
         @endforeach
     </tbody>

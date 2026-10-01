@@ -15,7 +15,8 @@ class Aspirasi extends Model
         'judul',
         'deskripsi',
         'foto',
-        'status'
+        'status',
+        'tanggapan'
     ];
 
     // Relasi ke Kategori

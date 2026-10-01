@@ -131,4 +131,21 @@ class AspirasiController extends Controller
 
         return redirect()->route('aspirasi.index')->with('success', 'Aspirasi berhasil dihapus');
     }
+
+       // FUNGSI TANGGAPI OLEH ADMIN
+    public function tanggapi(Request $request, $id_aspirasi)
+    {
+        $aspirasi = Aspirasi::where('id_aspirasi', $id_aspirasi)->first();
+
+        if ($aspirasi) {
+            // Simpan isi tanggapan dan ubah status menjadi Selesai
+            $aspirasi->tanggapan = $request->tanggapan;
+            $aspirasi->status = 'Selesai';
+            $aspirasi->save();
+
+            return redirect('/aspirasi')->with('success', 'Tanggapan berhasil dikirim dan status diperbarui menjadi Selesai.');
+        }
+
+        return redirect('/aspirasi')->with('error', 'Data aspirasi tidak ditemukan.');
+    }
 }

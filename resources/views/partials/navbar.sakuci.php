@@ -15,14 +15,13 @@
 <header class="navbar navbar-expand bg-body border-bottom sticky-top shadow-sm py-2 px-3">
     <div class="container-fluid">
         <div class="d-flex align-items-center gap-2">
-            {{-- Tombol Buka Sidebar Menu --}}
+            {{-- Tombol Buka Sidebar Menu (Garis 3 / Hamburger Menu) --}}
             <button class="btn btn-outline-secondary border-0 d-flex align-items-center justify-content-center p-2 rounded-3 text-body" 
                     type="button" 
                     data-bs-toggle="offcanvas" 
                     data-bs-target="#sidebarMenu" 
                     aria-controls="sidebarMenu"
                     aria-label="Buka Menu Sidebar">
-                {{-- SVG Garis 3 (Hamburger Icon) --}}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -39,6 +38,7 @@
 
         {{-- Aksi Kanan Topbar --}}
         <div class="ms-auto d-flex align-items-center gap-2">
+            {{-- Tombol Ganti Tema --}}
             <button id="themeToggle" type="button" class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-2 text-body" 
                     title="Ganti Tema Terang/Gelap" style="width: 36px; height: 36px;">
                 <i class="bi bi-moon-stars fs-6"></i>
@@ -74,7 +74,6 @@
     <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
         
         <ul class="nav nav-pills flex-column gap-1">
-            {{-- Menu Beranda (Dapat diakses Publik / Tanpa Login) --}}
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('home') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('home') }}">
                     <i class="bi bi-house-door fs-5"></i>
@@ -82,38 +81,51 @@
                 </a>
             </li>
 
-            {{-- Menu yang HANYA tampil jika user sudah LOGIN --}}
-            @if ($currentUser)
+            {{-- Menu Kategori HANYA TAMPIL UNTUK ADMIN --}}
+            @if ($currentUser && isset($currentUser->role) && $currentUser->role === 'admin')
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('kategori.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('kategori.index') }}">
                         <i class="bi bi-grid fs-5"></i>
                         <span class="fw-medium">Kategori</span>
                     </a>
                 </li>
+            @endif
+
+            {{-- Menu Pengguna HANYA TAMPIL UNTUK ADMIN --}}
+            @if ($currentUser && isset($currentUser->role) && $currentUser->role === 'admin')
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('pengguna.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('pengguna.index') }}">
                         <i class="bi bi-people fs-5"></i>
                         <span class="fw-medium">Pengguna</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('alat.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('alat.index') }}">
-                        <i class="bi bi-tools fs-5"></i>
-                        <span class="fw-medium">Alat</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('aspirasi.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('aspirasi.index') }}">
-                        <i class="bi bi-chat-left-text fs-5"></i>
-                        <span class="fw-medium">Aspirasi</span>
-                    </a>
-                </li>
+            @endif
 
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('alat.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ route('alat.index') }}">
+                    <i class="bi bi-tools fs-5"></i>
+                    <span class="fw-medium">Alat</span>
+                </a>
+            </li>
+
+            {{-- Menu Aspirasi --}}
+            <li class="nav-item">
+                @php
+                    $aspirasiRoute = ($currentUser && isset($currentUser->role) && $currentUser->role === 'admin') 
+                        ? route('admin.aspirasi.index') 
+                        : route('aspirasi.index');
+                @endphp
+                <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('aspirasi.index', 'admin.aspirasi.index') ? 'active fw-semibold' : 'text-body hover-bg' }}" href="{{ $aspirasiRoute }}">
+                    <i class="bi bi-chat-left-text fs-5"></i>
+                    <span class="fw-medium">Aspirasi</span>
+                </a>
+            </li>
+
+            @if ($currentUser)
                 <div class="my-2 border-top"></div>
-
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('admin.dashboard', 'dashboard') ? 'active fw-semibold' : 'text-body hover-bg' }}"
-                       href="{{ $currentUser->role === 'admin' ? route('admin.dashboard') : route('dashboard') }}">
+                    <a class="nav-link d-flex align-items-center gap-2.5 px-3 py-2.5 rounded-3 {{ is_route('admin.dashboard', 'dashboard', 'siswa.dashboard') ? 'active fw-semibold' : 'text-body hover-bg' }}"
+                       href="{{ isset($currentUser->role) && $currentUser->role === 'admin' ? route('admin.dashboard') : route('dashboard') }}">
                         <i class="bi bi-speedometer2 fs-5"></i>
                         <span class="fw-medium">Dashboard</span>
                     </a>
@@ -121,7 +133,7 @@
             @endif
         </ul>
 
-        {{-- Footer Sidebar (Aksi Login / Logout) --}}
+        {{-- Footer Sidebar --}}
         <div class="border-top pt-3 mt-3">
             @if ($currentUser)
                 <div class="mb-3 px-2 d-flex align-items-center gap-2">
