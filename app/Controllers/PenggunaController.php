@@ -31,7 +31,7 @@ class PenggunaController extends Controller
         ]);
 
         $user = User::create([
-            'username' => $request->nama,
+            'username' => $request->nis,
             'password' => password_hash('123456', PASSWORD_DEFAULT),
             'role'     => 'siswa',
         ]);

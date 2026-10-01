@@ -10,10 +10,10 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-1">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none">Beranda</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Pengguna</li>
+                    <li class="breadcrumb-item active text-body-secondary" aria-current="page">Pengguna</li>
                 </ol>
             </nav>
-            <h1 class="h3 fw-bold text-dark mb-0">Manajemen Pengguna / Siswa</h1>
+            <h1 class="h3 fw-bold text-body mb-0">Manajemen Pengguna / Siswa</h1>
         </div>
         <a href="{{ route('pengguna.create') }}" class="btn btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
             <i class="bi bi-person-plus-fill"></i> Tambah Pengguna
@@ -21,11 +21,11 @@
     </div>
 
     {{-- Tabel dalam Card Modern --}}
-    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card border border-secondary-subtle shadow-sm rounded-4 overflow-hidden bg-body-tertiary">
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light text-uppercase fs-7">
+                    <thead class="bg-body-secondary text-body-secondary text-uppercase fs-7">
                         <tr>
                             <th class="py-3 px-4" style="width: 5%;">No</th>
                             <th class="py-3">Nama</th>
@@ -43,20 +43,20 @@
 
                         @forelse ($data as $d)
                         <tr>
-                            <td class="px-4 text-muted fw-semibold">{{ $no++ }}</td>
+                            <td class="px-4 text-body-secondary fw-semibold">{{ $no++ }}</td>
                             <td>
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 35px; height: 35px; font-size: 0.85rem;">
                                         {{ strtoupper(substr($d->nama, 0, 2)) }}
                                     </div>
-                                    <span class="fw-semibold text-dark">{{ $d->nama }}</span>
+                                    <span class="fw-semibold text-body">{{ $d->nama }}</span>
                                 </div>
                             </td>
                             <td>
-                                <span class="badge bg-light text-dark border px-2 py-1 font-monospace">{{ $d->nis }}</span>
+                                <span class="badge bg-body-secondary text-body-emphasis border border-secondary-subtle px-2 py-1 font-monospace">{{ $d->nis }}</span>
                             </td>
                             <td>
-                                <span class="badge bg-secondary bg-opacity-10 text-secondary px-2 py-1">{{ $d->kelas }}</span>
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis px-2 py-1">{{ $d->kelas }}</span>
                             </td>
                             <td class="text-end px-4">
                                 <div class="d-flex justify-content-end gap-1">
@@ -78,11 +78,11 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center py-5 text-muted">
+                            <td colspan="5" class="text-center py-5 text-body-secondary">
                                 <div class="py-3">
-                                    <i class="bi bi-folder2-open display-4 text-secondary opacity-50 mb-3 d-block"></i>
-                                    <p class="mb-1 fw-semibold">Belum ada data pengguna.</p>
-                                    <small>Silakan klik tombol "Tambah Pengguna" di atas.</small>
+                                    <i class="bi bi-folder2-open display-4 text-body-tertiary opacity-50 mb-3 d-block"></i>
+                                    <p class="mb-1 fw-semibold text-body">Belum ada data pengguna.</p>
+                                    <small class="text-body-secondary">Silakan klik tombol "Tambah Pengguna" di atas.</small>
                                 </div>
                             </td>
                         </tr>
@@ -94,7 +94,7 @@
         
         {{-- Footer / Pagination --}}
         @if(method_exists($data, 'links') && $data->hasPages())
-            <div class="card-footer bg-white py-3 px-4 border-top">
+            <div class="card-footer bg-body-tertiary py-3 px-4 border-top border-secondary-subtle">
                 <div class="d-flex justify-content-center justify-content-md-end">
                     {!! $data->links() !!}
                 </div>
